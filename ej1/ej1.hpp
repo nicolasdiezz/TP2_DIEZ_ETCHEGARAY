@@ -25,11 +25,13 @@ class Pokemon{
         string nombre;
         int experiencia;
         PokemonInfo informacion;
+        int nivel;
     public:
         Pokemon(string n, int exp, PokemonInfo info) : nombre(n), experiencia(exp), informacion(info) {}
         string getNombre() const;
         int getExperiencia() const;
         PokemonInfo getInformacion() const;
+        int getNivel() const;
         bool operator==(const Pokemon& other) const {
             return nombre == other.nombre;;
         }
@@ -49,6 +51,8 @@ class Pokedex{
     public:
         void agregarPokemon(const Pokemon& pokemon);
         PokemonInfo obtenerInformacion(const Pokemon& pokemon) const;
+        void mostrarTodos() const;
+        void mostrar(const Pokemon& pokemon) const;
 };
 
 
