@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include <unordered_map>
+#include <fstream>
 using namespace std;
 
 class PokemonInfo{
@@ -18,6 +19,8 @@ class PokemonInfo{
         string getDescripcion() const;
         vector<pair<string, int>> getAtaques() const;
         vector<int> getExperienciaProxNivel() const;
+        void serializar(ofstream& out) const;
+        void deserializar(ifstream& in);
 };
 
 class Pokemon{
@@ -35,6 +38,8 @@ class Pokemon{
         bool operator==(const Pokemon& other) const {
             return nombre == other.nombre;;
         }
+        void serializar(ofstream& out) const;
+        void deserializar(ifstream& in);
 };
 
 //hacer el hash
@@ -48,11 +53,17 @@ class PokedexHash {
 class Pokedex{
     private:
         unordered_map<Pokemon, PokemonInfo, PokedexHash> pokedex;
+        string archivo;
     public:
+        Pokedex() = default;
+        Pokedex(const string& archivo) : archivo(archivo) {}
         void agregarPokemon(const Pokemon& pokemon);
         PokemonInfo obtenerInformacion(const Pokemon& pokemon) const;
         void mostrarTodos() const;
         void mostrar(const Pokemon& pokemon) const;
+        //serializar y deserializar
+        void serializar(const string& archivo) const;
+        void deserializar(const string& archivo);
 };
 
 
