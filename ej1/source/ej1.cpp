@@ -1,4 +1,4 @@
-#include "ej1.hpp"
+#include "../include/ej1.hpp"
 
 //implementacion de Pokemon
 string Pokemon::getNombre() const {

@@ -1,4 +1,4 @@
-#include "ej1.hpp"
+#include "../include/ej1.hpp"
 
 /*creo varios pokemons y los agrego a la pokedex, luego 
 los muestro, serializo la pokedex, deserializo y vuelvo a mostrar los pokemons*/
