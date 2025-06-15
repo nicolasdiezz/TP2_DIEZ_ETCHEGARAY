@@ -42,6 +42,7 @@ void Garage:: iniciarVuelo(){
 
     {
         std::lock_guard<std::mutex> lockCout(coutMutex);
+        std::cout << "===============================" << std::endl;
         std::cout << "SE TERMINO TODA LA SIMULACIÓN" << std::endl;
 
     }
