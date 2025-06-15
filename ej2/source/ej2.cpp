@@ -30,10 +30,19 @@ void Garage:: iniciarVuelo(){
                 std::lock_guard<std::mutex> lockCout(coutMutex);
                 std::cout << "Dron " << i << " alcanzó altura de 10m\n";
             }
-            
+
             //Libero los mutex manualmente
             zonasInterferencia[zonaIzq].unlock();
             zonasInterferencia[zonaDer].unlock();
         });
+    }
+    for(auto& dron : drones) {
+        dron.join();          // Espero a que todos los drones terminen su vuelo
+    }
+
+    {
+        std::lock_guard<std::mutex> lockCout(coutMutex);
+        std::cout << "SE TERMINO TODA LA SIMULACIÓN" << std::endl;
+
     }
 }
