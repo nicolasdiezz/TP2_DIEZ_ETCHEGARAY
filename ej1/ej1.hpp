@@ -62,8 +62,8 @@ class Pokedex{
         void mostrarTodos() const;
         void mostrar(const Pokemon& pokemon) const;
         //serializar y deserializar
-        void serializar(const string& archivo) const;
-        void deserializar(const string& archivo);
+        void serializar() const;
+        void deserializar();
 };
 
 

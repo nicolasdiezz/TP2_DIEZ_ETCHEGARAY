@@ -33,11 +33,11 @@ int main(){
     pokedex.mostrar(charmander);
 
     //serializar la pokedex
-    pokedex.serializar("pokedex.dat");
+    pokedex.serializar();
 
     //deserializar la pokedex
     Pokedex pokedex2("pokedex.dat");
-    pokedex2.deserializar("pokedex.dat");
+    pokedex2.deserializar();
 
     cout << "DESPUES DE DESERIALIZAR" << endl;
     cout << "------------------------" << endl;

@@ -172,7 +172,7 @@ void Pokedex::mostrar(const Pokemon& pokemon) const {
     cout << endl;
 }
 
-void Pokedex::serializar(const string& archivo) const {
+void Pokedex::serializar() const {
     ofstream out(archivo, ios::binary);
     if (!out) {
         throw runtime_error("No se pudo abrir el archivo");
@@ -189,7 +189,7 @@ void Pokedex::serializar(const string& archivo) const {
     out.close();
 }
 
-void Pokedex::deserializar(const string& archivo) {
+void Pokedex::deserializar() {
     ifstream in(archivo, ios::binary);
     if (!in) {
         throw runtime_error("No se pudo abrir el archivo");
