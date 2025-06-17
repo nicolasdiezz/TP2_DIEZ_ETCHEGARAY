@@ -15,8 +15,8 @@ int main(){
     Pokemon squirtle("Squirtle", 60, info2);
 
     PokemonInfo info3("Planta", "una rata rara con una planta en la espalda", {0, 150, 300});
-    info2.agregarAtaque("Latigo Cepa", 70);
-    info2.agregarAtaque("Rayo Solar", 100);
+    info3.agregarAtaque("Latigo Cepa", 70);
+    info3.agregarAtaque("Rayo Solar", 100);
     Pokemon bulbasur("Bulbasur", 230, info3);
 
     Pokedex pokedex("pokedex.dat");
