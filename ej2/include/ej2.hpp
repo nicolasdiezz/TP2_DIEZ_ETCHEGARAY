@@ -6,17 +6,18 @@
 #include <mutex>
 #include <vector>
 #include <chrono>
+using namespace std;
 
-constexpr int numDrones = 5;                       //Cantidad de drones y zonas de inerferencia 
+constexpr int numDrones = 5;  //Cantidad de drones y zonas de inerferencia, se puede cambair segun lo pedido
 
 class Garage{
     private:
-        std::mutex zonasInterferencia[numDrones];  //Mutex para las zonas de interferencia
-        std::mutex coutMutex;                      //Mutex para los cout
-        std::vector<std::thread> drones;           // Vector de hilos para los drones
+        mutex zonasInterferencia[numDrones];  //Mutex para las zonas de interferencia
+        mutex coutMutex;                      //Mutex para los cout
+        vector<std::thread> drones;           // Vector de hilos para los drones
 
     public:
-        Garage();
+        Garage();                            
         void iniciarVuelo();
 };
 

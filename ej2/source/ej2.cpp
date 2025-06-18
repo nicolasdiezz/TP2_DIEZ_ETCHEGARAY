@@ -1,10 +1,12 @@
 #include "../include/ej2.hpp"
 
+
 Garage ::Garage(){
-    // No es necesario inicializar los mutex, ya que el constructor por defecto del mutex lo hace automáticamente.
+    // No inicializo los mutex, porque el constructor por defecto del mutex lo hace automáticamente.
     // El vector de hilos lo inicializo vacío y lo lleno despues en iniciarVuelo.
 }
 
+// El método iniciarVuelo crea un hilo por cada dron, y cada hilo simula el vuelo de un dron.
 void Garage:: iniciarVuelo(){
     for(int i = 0; i < numDrones; i++){
         drones.emplace_back([this, i]() {
@@ -12,23 +14,23 @@ void Garage:: iniciarVuelo(){
             int zonaDer = (i + 1) % numDrones;
 
             {
-                std::lock_guard<std::mutex> lockCout(coutMutex);                 // Bloqueo el mutex de cout para que no se mezcle con otros cout
-                std::cout << "Dron " << i << " esperando para despegar...\n";
+                lock_guard<std::mutex> lockCout(coutMutex);                 // Bloqueo el mutex de cout para que no se mezcle con otros cout
+                cout << "Dron " << i << " esperando para despegar..." << endl;
             }
 
-            std::lock(zonasInterferencia[zonaIzq], zonasInterferencia[zonaDer]); // Bloqueo ambas zonas al mismo tiempo
+            lock(zonasInterferencia[zonaIzq], zonasInterferencia[zonaDer]); // Bloqueo ambas zonas al mismo tiempo
 
             // Desde acá los mutex ya están bloqueados manualmente
             {
-                std::lock_guard<std::mutex> lockCout(coutMutex);
-                std::cout << "Dron " << i << " despegando...\n";
+                lock_guard<std::mutex> lockCout(coutMutex);
+                cout << "Dron " << i << " despegando..." << endl;
             }
 
-            std::this_thread::sleep_for(std::chrono::seconds(5));  // Simulo el despegue
+            this_thread::sleep_for(std::chrono::seconds(5));  // Simulo el despegue
 
             {
-                std::lock_guard<std::mutex> lockCout(coutMutex);
-                std::cout << "Dron " << i << " alcanzó altura de 10m\n";
+                lock_guard<std::mutex> lockCout(coutMutex);
+                cout << "Dron " << i << " alcanzó altura de 10m"<< endl;
             }
 
             //Libero los mutex manualmente
@@ -41,9 +43,9 @@ void Garage:: iniciarVuelo(){
     }
 
     {
-        std::lock_guard<std::mutex> lockCout(coutMutex);
-        std::cout << "===============================" << std::endl;
-        std::cout << "SE TERMINO TODA LA SIMULACIÓN" << std::endl;
+        lock_guard<std::mutex> lockCout(coutMutex);
+        cout << "===============================" << endl;
+        cout << "SE TERMINO TODA LA SIMULACIÓN" << endl;
 
     }
 }

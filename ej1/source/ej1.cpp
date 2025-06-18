@@ -4,12 +4,18 @@
 string Pokemon::getNombre() const {
     return nombre;
 }
+
+//devuelve la experiencia del pokemon
 int Pokemon::getExperiencia() const {
     return experiencia;
 }
+
+//devuelve la informacion del pokemon
 PokemonInfo Pokemon::getInformacion() const {
     return informacion;
 }
+
+//devuelve el nivel del pokemon segun su experiencia
 int Pokemon::getNivel() const {
     if(experiencia >= informacion.getExperienciaProxNivel()[2]) {
         return 3;
@@ -19,15 +25,18 @@ int Pokemon::getNivel() const {
     }
     return 1; // Si la experiencia es menor que el primer nivel, se considera nivel 1.
 }
+
+// serializa el pokemon
 void Pokemon::serializar(ofstream& out) const {
     size_t nombreSize = nombre.size();
     out.write(reinterpret_cast<const char*>(&nombreSize), sizeof(nombreSize)); // escribir el tamaño del nombre
     out.write(nombre.c_str(), nombreSize); // escribir el nombre
 
     out.write(reinterpret_cast<const char*>(&experiencia), sizeof(experiencia));
-    informacion.serializar(out);
-    
+    informacion.serializar(out);    
 }
+
+// deserializa el pokemon
 void Pokemon::deserializar(ifstream& in) {
     size_t nombreSize;
     in.read(reinterpret_cast<char*>(&nombreSize), sizeof(nombreSize)); // leer el tamaño del nombre
@@ -37,26 +46,35 @@ void Pokemon::deserializar(ifstream& in) {
     in.read(reinterpret_cast<char*>(&experiencia), sizeof(experiencia));
     
     informacion.deserializar(in);
-    
 }
 
 
 //implementacion de PokemonInfo
-void PokemonInfo::agregarAtaque(string ataque, int daño) {
-    ataques.push_back(make_pair(ataque, daño));
+void PokemonInfo::agregarAtaque(string ataque, int danio) {
+    ataques.push_back(make_pair(ataque, danio));
 }
+
+// devuelve el tipo del pokemon
 string PokemonInfo::getTipo() const {
     return tipo;
 }
+
+// devuelve la descripcion del pokemon
 string PokemonInfo::getDescripcion() const {
     return descripcion;
 }
+
+// devuelve los ataques del pokemon, como vector de pares (nombre del ataque, daño)
 vector<pair<string, int>> PokemonInfo::getAtaques() const {
     return ataques;
 }
+
+// devuelve la experiencia necesaria para el proximo nivel del pokemon
 vector<int> PokemonInfo::getExperienciaProxNivel() const {
     return experienciaProxNivel;
 }
+
+// serializa la informacion del pokemon
 void PokemonInfo::serializar(ofstream& out) const {
     size_t tipoSize = tipo.size();
     size_t descripcionSize = descripcion.size();
@@ -80,8 +98,9 @@ void PokemonInfo::serializar(ofstream& out) const {
     for (int exp : experienciaProxNivel) {
         out.write(reinterpret_cast<const char*>(&exp), sizeof(exp));
     }
-    
 }
+
+// deserializa la informacion del pokemon
 void PokemonInfo::deserializar(ifstream& in) {
     size_t tipoSize;
     size_t descripcionSize;
@@ -103,9 +122,9 @@ void PokemonInfo::deserializar(ifstream& in) {
         ataque.resize(ataqueSize); // redimensionar el string para que tenga el tamaño correcto
         in.read(&ataque[0], ataqueSize); // leer el ataque
     
-        int daño;
-        in.read(reinterpret_cast<char*>(&daño), sizeof(daño));
-        ataques.push_back(make_pair(ataque, daño));
+        int danio;
+        in.read(reinterpret_cast<char*>(&danio), sizeof(danio));
+        ataques.push_back(make_pair(ataque, danio));
     }
 
     int numExp;
@@ -133,6 +152,7 @@ PokemonInfo Pokedex::obtenerInformacion(const Pokemon& pokemon) const {
     }
 }
 
+// muestra todos los pokemons de la pokedex y sus informaciones
 void Pokedex::mostrarTodos() const {
     for (const auto& entry : pokedex) {
         const Pokemon& pokemon = entry.first;
@@ -150,7 +170,7 @@ void Pokedex::mostrarTodos() const {
         cout << endl;
     }
 }
-
+// muestra un pokemon en particular y su informacion
 void Pokedex::mostrar(const Pokemon& pokemon) const {
     auto it = pokedex.find(pokemon);
     if (it != pokedex.end()) {
@@ -171,7 +191,7 @@ void Pokedex::mostrar(const Pokemon& pokemon) const {
     }
     cout << endl;
 }
-
+// serializa la pokedex a un archivo binario
 void Pokedex::serializar() const {
     ofstream out(archivo, ios::binary);
     if (!out) {
@@ -189,6 +209,7 @@ void Pokedex::serializar() const {
     out.close();
 }
 
+// deserializa la pokedex desde un archivo binario
 void Pokedex::deserializar() {
     ifstream in(archivo, ios::binary);
     if (!in) {

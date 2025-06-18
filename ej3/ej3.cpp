@@ -37,7 +37,7 @@ void sensor(int id) {
             cout << "[Sensor " << id << "] Generó tarea " << i << endl;
         }
 
-        cv.notify_all();
+        cv.notify_one();
         this_thread::sleep_for(chrono::milliseconds(175));
     }
 
@@ -76,7 +76,7 @@ void robot(int id) {
 
     {
         lock_guard<mutex> lg(cout_mtx);
-        cout << "[Robot " << id << "] Finalizó.\n";
+        cout << "[Robot " << id << "] Finalizó." << endl;
     }
 }
 

@@ -1,3 +1,6 @@
+#ifndef EJ1_HPP
+#define EJ1_HPP
+
 #include <iostream>
 #include <string>
 #include <map>
@@ -14,7 +17,7 @@ class PokemonInfo{
         vector<int> experienciaProxNivel;
     public:
         PokemonInfo(string t, string desc, vector<int> expNiv) : tipo(t), descripcion(desc), experienciaProxNivel(expNiv) {}
-        void agregarAtaque(string ataque, int daño);
+        void agregarAtaque(string ataque, int danio);
         string getTipo() const;
         string getDescripcion() const;
         vector<pair<string, int>> getAtaques() const;
@@ -66,4 +69,5 @@ class Pokedex{
         void deserializar();
 };
 
+#endif
 
