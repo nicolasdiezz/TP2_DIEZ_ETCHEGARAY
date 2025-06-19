@@ -29,8 +29,8 @@ int main(){
     // muestra todos los pokemons
     pokedex.mostrarTodos();
     // muestra un pokemon en particular
-    pokedex.mostrar(squirtle);
-    pokedex.mostrar(charmander);
+    pokedex.mostrar(squirtle); // no esta en la pokedex, no se mostrara
+    pokedex.mostrar(charmander); // muestro uno que si esta en la pokedex
 
     //serializar la pokedex
     pokedex.serializar();
@@ -45,8 +45,8 @@ int main(){
     // muestra todos los pokemons deserializados
     pokedex2.mostrarTodos();
     // muestra un pokemon en particular deserializado
-    pokedex2.mostrar(squirtle);
-    pokedex2.mostrar(bulbasur);
+    pokedex2.mostrar(squirtle); // no esta en la pokedex, no se mostrara
+    pokedex2.mostrar(bulbasur); // muestro uno que si esta en la pokedex
 
     return 0;
 }
